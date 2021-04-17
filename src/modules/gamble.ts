@@ -9,6 +9,18 @@ export default class GambleModule extends Module {
         super(client);
     }
 
+    private getAmountOwned(id: string, item: string): number {
+        let amountOwned = 0;
+
+        if (!db.get(`${id}.items`)) return amountOwned;
+
+        db.get(`${id}.items`).forEach((item2: string) => {
+            if (item2.toLowerCase() === item.toLowerCase()) amountOwned++
+        });
+
+        return amountOwned;
+    }
+
     @command()
     gamble(msg: Message, @optional amount: string) {
         if (amount !== 'all' && !parseInt(amount) || db.get(msg.author.id + '.cash') <= 0) 
@@ -20,19 +32,19 @@ export default class GambleModule extends Module {
         if (talkedRecently.has(msg.author.id))
             return msg.channel.send('Calm down you cunt.');
 
-        let winOrLoss = Math.random() < 0.4;
-
+        let winOrLoss = Math.random() < (0.4 + this.getAmountOwned(msg.author.id, 'The Arun') < 0 ? 0 : (this.getAmountOwned(msg.author.id, 'The Arun')/10))
+        
         if (winOrLoss) {
             let embed: MessageEmbed = new MessageEmbed()
                 .setTitle('💰 You Won!')
                 .setColor('#52FF33')
 
             db.add(`${msg.author.id}.cash`, amount !== 'all' ? parseInt(amount) : db.get(`${msg.author.id}.cash`));
-
+ 
             embed.description = `Your new balance is: \`${db.get(msg.author.id + '.cash')}\``;
 
             return msg.channel.send(embed);
-        } 
+        }
 
         let embed: MessageEmbed = new MessageEmbed()
             .setTitle('❌ You lost, unlucky.')
