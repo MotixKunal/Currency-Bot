@@ -1,6 +1,6 @@
 export default interface ShopInterface {
     itemName: string,
-    description: string
+    description: string,
     value: number,
     sellvalue: number,
     id: string,
