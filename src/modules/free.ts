@@ -26,7 +26,7 @@ export default class FreeModule extends Module {
     @command()
     free(msg: Message) {
         if (talkedRecently.has(msg.author.id)) 
-            return msg.channel.send('Please chill out you cunt.');
+            return msg.channel.send('Yo chill out there, a bit too fast');
 
         talkedRecently.add(msg.author.id)
 
