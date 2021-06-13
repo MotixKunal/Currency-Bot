@@ -16,13 +16,13 @@ export default class SlotModule extends Module {
     })
     slots(msg: Message, amount: string) {
         if (amount !== 'all' && !parseInt(amount) || db.get(msg.author.id + '.cash') <= 0) 
-            return msg.channel.send('Do that again but actually send a amount, retard.');
+            return msg.channel.send('Do that again but actually send a amount.');
 
         if (db.get(msg.author.id + '.cash') < parseInt(amount))
             return msg.channel.send('Do that again, but give a number you have :|');
 
         if (talkedRecently.has(msg.author.id)) 
-            return msg.channel.send('Calm down you cunt.');
+            return msg.channel.send('Calm down there, a bit too fast.');
         
         let emojis = [...Array(3)].map(() => this.emojis[Math.floor(Math.random() * this.emojis.length)])
 
