@@ -24,13 +24,13 @@ export default class GambleModule extends Module {
     @command()
     gamble(msg: Message, @optional amount: string) {
         if (amount !== 'all' && !parseInt(amount) || db.get(msg.author.id + '.cash') <= 0) 
-            return msg.channel.send('Do that again but actually send a amount, retard.');
+            return msg.channel.send('Do that again but actually send a amount.');
 
         if (db.get(msg.author.id + '.cash') < parseInt(amount))
             return msg.channel.send('Do that again, but give a number you have :|');
 
         if (talkedRecently.has(msg.author.id))
-            return msg.channel.send('Calm down you cunt.');
+            return msg.channel.send('Calm down there, a bit too fast');
 
         let winOrLoss = Math.random() < (0.4 + this.getAmountOwned(msg.author.id, 'The Arun') < 0 ? 0 : (this.getAmountOwned(msg.author.id, 'The Arun')/10))
         
