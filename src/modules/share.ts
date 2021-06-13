@@ -15,13 +15,13 @@ export default class ShareModule extends Module {
     })
     share(msg: Message, amount: number, user: User) {
         if (user.bot)
-            return msg.channel.send('you know you cant donate to a bot right? retard smh');
+            return msg.channel.send('you know you cant donate to a bot right? smh');
 
         if (user === msg.author)
-            return msg.channel.send('this retard tried sending money to himself lol');
+            return msg.channel.send('this guy tried sending money to himself lol');
 
         if (amount > db.get(`${msg.author.id}.cash`))
-            return msg.channel.send('lol send a amount you have retard');
+            return msg.channel.send('lol send a amount you have weirdo');
 
         db.add(`${user.id}.cash`, amount);
         db.set(`${msg.author.id}.cash`, db.get(`${msg.author.id}.cash`) - amount)
