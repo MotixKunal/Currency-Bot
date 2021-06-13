@@ -1,6 +1,5 @@
 import CookiecordClient from "cookiecord";
 import dotenv from "dotenv-safe";
-import db from "./db";
 dotenv.config();
 
 const client = new CookiecordClient({
